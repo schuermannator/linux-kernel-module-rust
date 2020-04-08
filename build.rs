@@ -29,8 +29,8 @@ const INCLUDED_FUNCTIONS: &[&str] = &[
     "usbnet_read_cmd",
     "call_usermodehelper",
     "schedule",
-    //"__purge_module",
-    //"__rust_delete_module",
+    "__purge_module",
+    "__rust_delete_module",
 ];
 const INCLUDED_VARS: &[&str] = &["__this_module", "THIS_MODULE"];
 
@@ -63,10 +63,11 @@ fn main() {
 
     println!("get output:{}", output);
     // These three arguments are not supported by clang
-    // output = output.replace("-mapcs", "");
-    // output = output.replace("-mno-sched-prolog", "");
-    // output = output.replace("-mno-thumb-interwork", "");
-
+    let output = output.replace("-mapcs", "");
+    let output = output.replace("-mno-sched-prolog", "");
+    let output = output.replace("-mno-thumb-interwork", "");
+    let output = output.replace("-Wno-unused-but-set-variable", "");
+ 
     for arg in shlex::split(&output).unwrap() {
         builder = builder.clang_arg(arg.to_string());
     }

@@ -40,7 +40,7 @@ our_flags = $(foreach o,$($(1)),$(call our_addtree,$(o)))
 # @echo $(NOSTDINC_FLAGS) $(call our_flags,LINUXINCLUDE) $(filter-out $(clang_unsupported),$(__c_flags)) $(modkern_cflags)
 
 $(M)/dummy.c:
-	@echo $(NOSTDINC_FLAGS) $(call our_flags,LINUXINCLUDE) $(__c_flags) $(modkern_cflags)
+	@echo $(NOSTDINC_FLAGS) $(call our_flags,LINUXINCLUDE) $(_c_flags) $(modkern_cflags)
 	@touch $@
 
 .PHONY: $(M)/dummy.c
